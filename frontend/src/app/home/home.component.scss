@@ -1,0 +1,23 @@
+.home-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 65vh;
+    text-align: center;
+    padding: 20px;
+
+    .title {
+        font-size: 4rem;  /* Adjusted for visibility */
+        font-weight: bold;
+        color: #7399c6;
+        margin-bottom: 20px;
+    }
+
+    .subtitle {
+        font-size: 1.5rem;
+        color: #7399c6;
+        max-width: 600px;
+        line-height: 1.6;
+    }
+}
