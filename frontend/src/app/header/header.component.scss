@@ -1,18 +1,27 @@
 #container {
     display: flex; 
-    padding: 30px 40px;  /* Increased padding for larger header */
-    margin-bottom: 30px; /* Increased margin for spacing */
+    padding: 30px 40px;  
+    margin-bottom: 30px; 
     background-color: #7399c6;
     color: white;
-    font-size: 1.5rem;  /* Increased font size for header */
-    font-weight: bold;  /* Make the header text bold */
+    font-size: 1.5rem;  
+    font-weight: bold;  
+
+    opacity: 0;
+    transform: translateY(-20px);
+    animation: fadeIn 1s ease-in-out forwards;
 
     #title {
         flex-grow: 1; 
-        font-size: 2rem;  /* Optimal title text size */
-        font-weight: bold;  /* Make the title stand out */
-        text-align: left;  /* Center the title horizontally */
+        font-size: 2rem;  
+        font-weight: bold;  
+        text-align: left;  
         padding-left: 20px;
+        transition: color 0.3s ease-in-out;
+
+        &:hover {
+            color: lightgray;
+        }
     }
     
     #links { 
@@ -23,26 +32,35 @@
         align-items: center;
 
         .link {
-            padding: 10px 20px;  /* Adjust button padding for better size */
-            border: 1px solid white; /* Add border for button-like appearance */
-            //border-radius: 5px; /* Rounded corners for buttons */
+            padding: 10px 20px;  
+            border: 1px solid white; 
             background-color: transparent;
             color: white;
-            font-size: 1.2rem; /* Increase button text size */
-            text-transform: uppercase; /* Make text uppercase for button styling */
+            font-size: 1.2rem; 
             cursor: pointer; 
             transition: all 0.3s ease-in-out;
 
             &:hover {
                 color: grey;
-                background-color: white; /* Background change on hover */
+                background-color: white; 
             }
 
             &.active {
                 color: white;
-                background-color: rgba(255, 255, 255, 0.2); /* Transparent white when active/on page */
-                border-color: white; /* Softer border for visibility */
+                background-color: rgba(255, 255, 255, 0.2); 
+                border-color: white; 
             }
         }
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
     }
 }

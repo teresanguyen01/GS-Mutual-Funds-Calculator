@@ -6,12 +6,17 @@
     height: 65vh;
     text-align: center;
     padding: 20px;
+    opacity: 0;
+    animation: fadeIn 0.7s ease-in-out forwards;
 
     .title {
-        font-size: 4rem;  /* Adjusted for visibility */
+        font-size: 4rem;
         font-weight: bold;
         color: #7399c6;
         margin-bottom: 20px;
+        opacity: 0;
+        transform: translateY(-20px);
+        animation: slideUp 0.7s ease-in-out 0.5s forwards;
     }
 
     .subtitle {
@@ -19,5 +24,43 @@
         color: #7399c6;
         max-width: 600px;
         line-height: 1.6;
+        opacity: 0;
+        transform: translateY(20px);
+        animation: slideUp 0.7s ease-in-out 0.7s forwards;
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@media (max-width: 768px) {
+    .home-container {
+        height: 80vh;
+
+        .title {
+            font-size: 3rem;
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            max-width: 90%;
+        }
     }
 }

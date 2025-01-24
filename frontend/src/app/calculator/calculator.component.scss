@@ -1,7 +1,7 @@
 .calculator-page {
     display: flex;
     justify-content: center;
-    align-items: flex-start; /* Align elements to the top */
+    align-items: flex-start;
     width: 100%;
     padding-top: 10px;
     background-color: white;
@@ -20,7 +20,7 @@
         font-size: 1rem;
         border: 1px solid black;
         border-radius: 5px;
-        width: 260px;  /* Adjusted for better spacing */
+        width: 260px;
         background-color: white;
         color: black;
         outline: none;
@@ -31,17 +31,17 @@
     .add-btn {
         padding: 15px 30px;
         font-size: 1rem;
-        background-color: #7399c6;  /* Blue background */
+        background-color: #7399c6;
         color: white;
         border: none;
         border-radius: 5px;
         cursor: pointer;
         transition: all 0.3s ease;
-        width: 180px;  /* Stretch buttons */
+        width: 180px;
         text-align: center;
 
         &:hover {
-            background-color: #5b85b8;  /* Darker blue on hover */
+            background-color: #5b85b8;
         }
     }
 }
