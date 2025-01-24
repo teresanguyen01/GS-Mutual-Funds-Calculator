@@ -1,0 +1,48 @@
+#container {
+    display: flex; 
+    padding: 30px 40px;  /* Increased padding for larger header */
+    margin-bottom: 30px; /* Increased margin for spacing */
+    background-color: #7399c6;
+    color: white;
+    font-size: 1.5rem;  /* Increased font size for header */
+    font-weight: bold;  /* Make the header text bold */
+
+    #title {
+        flex-grow: 1; 
+        font-size: 2rem;  /* Optimal title text size */
+        font-weight: bold;  /* Make the title stand out */
+        text-align: left;  /* Center the title horizontally */
+        padding-left: 20px;
+    }
+    
+    #links { 
+        flex-grow: 1; 
+        display: flex; 
+        gap: 20px; 
+        justify-content: right;
+        align-items: center;
+
+        .link {
+            padding: 10px 20px;  /* Adjust button padding for better size */
+            border: 1px solid white; /* Add border for button-like appearance */
+            //border-radius: 5px; /* Rounded corners for buttons */
+            background-color: transparent;
+            color: white;
+            font-size: 1.2rem; /* Increase button text size */
+            text-transform: uppercase; /* Make text uppercase for button styling */
+            cursor: pointer; 
+            transition: all 0.3s ease-in-out;
+
+            &:hover {
+                color: grey;
+                background-color: white; /* Background change on hover */
+            }
+
+            &.active {
+                color: white;
+                background-color: rgba(255, 255, 255, 0.2); /* Transparent white when active/on page */
+                border-color: white; /* Softer border for visibility */
+            }
+        }
+    }
+}

@@ -1,0 +1,47 @@
+.calculator-page {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start; /* Align elements to the top */
+    width: 100%;
+    padding-top: 10px;
+    background-color: white;
+
+    .form-container {
+        display: flex;
+        gap: 15px; 
+        max-width: 80%;  
+        margin: 0 auto; 
+        align-items: center;
+    }
+
+    .dropdown, 
+    .input-field {
+        padding: 15px 20px;
+        font-size: 1rem;
+        border: 1px solid black;
+        border-radius: 5px;
+        width: 260px;  /* Adjusted for better spacing */
+        background-color: white;
+        color: black;
+        outline: none;
+        cursor: pointer;
+    }
+
+    .submit-btn,
+    .add-btn {
+        padding: 15px 30px;
+        font-size: 1rem;
+        background-color: #7399c6;  /* Blue background */
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        width: 180px;  /* Stretch buttons */
+        text-align: center;
+
+        &:hover {
+            background-color: #5b85b8;  /* Darker blue on hover */
+        }
+    }
+}
