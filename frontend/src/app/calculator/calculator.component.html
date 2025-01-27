@@ -1,30 +1,45 @@
-<div class="calculator-page">
-    <div class="form-container">
-        <select class="dropdown">
-            <option disabled selected>Mutual Funds Tickers</option>
-            <option value="VSMPX">VSMPX</option>
-            <option value="FXAIX">FXAIX</option>
-            <option value="VFIAX">VFIAX</option>
-            <option value="VSTAX">VTSAX</option>
-            <option value="SPAXX">SPAXX</option>
-            <option value="VMFXX">VMFXX</option>
-            <option value="FDRXX">FDRXX</option>
-            <option value="FGTXX">FGTXX</option>
-            <option value="FGTXX">FGTXX</option>
-        </select>
+<div class="calculator-page">  
 
-        <input type="text" placeholder="Initial Investment $" class="input-field">
+  <div class="form-container">
+    <select class="dropdown" [(ngModel)]="selectedFund">
+      <option value="" disabled selected>Add Mutual Fund here</option>
+      <option *ngFor="let fund of mutualFunds" [value]="fund">{{ fund }}</option>
+    </select>
 
-        <select class="dropdown">
-            <option disabled selected>Time Horizon</option>
-            <option value="1 Year">1 Year</option>
-            <option value="3 Years">3 Years</option>
-            <option value="5 Years">5 Years</option>
-            <option value="10 Years">10 Years</option>
-            <option value="15+ Years">15+ Years</option>
-        </select>
+    <input type="number" placeholder="$ Initial Investment" class="input-field" [(ngModel)]="initialInvestment">
 
-        <button class="submit-btn">Submit</button>
-        <button class="add-btn">Add Investment</button>
+    <select class="dropdown" [(ngModel)]="timeHorizon">
+      <option value="" disabled selected>Choose Time Here</option>
+      <option [value]="1">1 Year</option>
+      <option [value]="3">3 Years</option>
+      <option [value]="5">5 Years</option>
+      <option [value]="10">10 Years</option>
+      <option [value]="15">15+ Years</option>
+    </select>
+
+    <button class="submit-btn" (click)="calculateFutureValue()">Submit</button>
+    <button class="add-btn">Add Investment</button>
+  </div>
+
+  <div class="results-container" *ngIf="futureValue !== null">
+    <div class="result-box">
+      <p class="result-title">Future Value of Investment</p>
+      <p class="result-value">${{ futureValue | number:'1.0-2' }}</p>
     </div>
+
+    <div class="result-box">
+      <p class="result-title">Beta</p>
+      <p class="result-value">{{ beta | number:'1.4-4' }}</p>
+    </div>
+
+    <div class="result-box">
+      <p class="result-title">Market Return Rate</p>
+      <p class="result-value">{{ marketRate | percent:'1.2-2' }}</p>
+    </div>
+
+    <div class="result-box">
+      <p class="result-title">Risk Free Rate</p>
+      <p class="result-value">{{ riskFreeRate | percent:'1.2-2' }}</p>
+    </div>
+  </div>
 </div>
