@@ -1,16 +1,23 @@
 .calculator-page {
     display: flex;
-    justify-content: center;
-    align-items: flex-start;
+    flex-direction: column;
+    align-items: center;
     width: 100%;
-    padding-top: 10px;
+    padding-top: 20px;
     background-color: white;
+
+    .title {
+        font-size: 2rem;
+        font-weight: bold;
+        color: #336699;
+        margin-bottom: 20px;
+    }
 
     .form-container {
         display: flex;
-        gap: 15px; 
-        max-width: 80%;  
-        margin: 0 auto; 
+        gap: 15px;
+        max-width: 80%;
+        margin: 0 auto;
         align-items: center;
     }
 
@@ -42,6 +49,29 @@
 
         &:hover {
             background-color: #5b85b8;
+        }
+    }
+
+    .results-container {
+        display: flex;
+        justify-content: center;
+        gap: 50px;
+        margin-top: 40px;
+
+        .result-box {
+            text-align: center;
+        }
+
+        .result-title {
+            font-size: 1rem;
+            font-weight: bold;
+            color: #7399c6;
+        }
+
+        .result-value {
+            font-size: 2rem;
+            font-weight: bold;
+            color: black;
         }
     }
 }

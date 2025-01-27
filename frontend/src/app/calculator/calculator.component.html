@@ -1,11 +1,11 @@
-<div class="calculator-page">
+<div class="calculator-page">  
   <div class="form-container">
     <select class="dropdown" [(ngModel)]="selectedFund">
       <option disabled selected>Select Mutual Fund</option>
       <option *ngFor="let fund of mutualFunds" [value]="fund">{{ fund }}</option>
     </select>
 
-    <input type="number" placeholder="Initial Investment $" class="input-field" [(ngModel)]="initialInvestment">
+    <input type="number" placeholder="$ Initial Investment" class="input-field" [(ngModel)]="initialInvestment">
 
     <select class="dropdown" [(ngModel)]="timeHorizon">
       <option disabled selected>Select Time Horizon</option>
@@ -17,11 +17,29 @@
     </select>
 
     <button class="submit-btn" (click)="calculateFutureValue()">Submit</button>
+    <button class="add-btn">Add Investment</button>
   </div>
 
-  <div *ngIf="futureValue !== null">
-    <p>Future Value: ${{ futureValue | number:'1.2-2' }}</p>
-    <p>Beta: {{ beta | number:'1.2-4' }}</p>
-    <p>Market Return Rate: {{ marketRate | percent:'1.2-2' }}</p>
+  <div class="results-container" *ngIf="futureValue !== null">
+    <div class="result-box">
+      <p class="result-title">Future Value of Investment</p>
+      <p class="result-value">${{ futureValue | number:'1.0-2' }}</p>
+    </div>
+
+    <div class="result-box">
+      <p class="result-title">Beta</p>
+      <p class="result-value">${{ beta | number:'1.4-4' }}</p>
+    </div>
+
+    <div class="result-box">
+      <p class="result-title">Market Return Rate</p>
+      <p class="result-value">${{ marketRate | number:'1.2-2' }}</p>
+    </div>
+
+    <div class="result-box">
+      <p class="result-title">Risk Free Rate</p>
+      <p class="result-value">${{ riskFreeRate | number:'1.2-2' }}</p>
+    </div>
   </div>
 </div>
+

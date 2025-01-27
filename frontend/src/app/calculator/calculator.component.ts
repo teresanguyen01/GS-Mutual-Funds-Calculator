@@ -11,7 +11,7 @@ import { CommonModule } from '@angular/common';
   styleUrls: ['./calculator.component.scss']
 })
 export class CalculatorComponent {
-  mutualFunds = ['VFIAX', 'FXAIX', 'SWPPX', 'QSPRX', 'VOO'];
+  mutualFunds = ['BTCFX', 'VFIAX', 'FXAIX', 'SWPPX', 'QSPRX', 'VOO'];
   selectedFund: string = '';
   initialInvestment: number | null = null;
   timeHorizon: number | null = null;
@@ -19,6 +19,7 @@ export class CalculatorComponent {
   futureValue: number | null = null;
   beta: number | null = null;
   marketRate: number | null = null;
+  riskFreeRate: number | null = 0.046; // Hardcoded value from backend
 
   constructor(private http: HttpClient) {}
 
