@@ -1,2 +1,2 @@
-# GS-Mutual-Funds-Calculator
-Goldman Sachs Emerging Leaders Mutual Fund Calculator. Test.
+# GS-Mutual-Funds-Dashboards
+This project was created for the Goldman Sachs Emerging Leaders Technical Challenge. It is a mutual funds dashboard that allows users to input a mutual fund, an initial investment amount, and a time horizon to calculate the future value of the investment.
