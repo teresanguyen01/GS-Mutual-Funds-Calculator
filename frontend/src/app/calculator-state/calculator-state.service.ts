@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 
 @Injectable({
-  providedIn: 'root'  // Ensures the service is available globally
+  providedIn: 'root'
 })
 export class CalculatorStateService {
   selectedFund: string = '';
