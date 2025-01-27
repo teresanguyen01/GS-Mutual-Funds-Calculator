@@ -8,6 +8,8 @@ import { AboutComponent } from './about/about.component';
 import { CalculatorComponent } from './calculator/calculator.component';
 import { SpreadsheetComponent } from './spreadsheet/spreadsheet.component';
 import { HomeComponent } from './home/home.component';
+import { HttpClientModule } from '@angular/common/http';
+
 
 @NgModule({
   declarations: [
@@ -20,7 +22,8 @@ import { HomeComponent } from './home/home.component';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule,
   ],
   providers: [
     provideClientHydration(withEventReplay())
