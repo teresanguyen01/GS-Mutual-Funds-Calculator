@@ -1,8 +1,12 @@
+// Inject the HttpClient and CalculatorStateService services
+// Injectable is a decorator that marks a class as available to be provided and injected as a dependency.
 import { Injectable } from '@angular/core';
 
 @Injectable({
   providedIn: 'root'
 })
+
+// The CalculatorStateService class is a service that stores the state of the calculator component.
 export class CalculatorStateService {
   selectedFund: string = '';
   initialInvestment: number | null = null;
