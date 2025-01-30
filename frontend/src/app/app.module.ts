@@ -14,6 +14,7 @@ import { HomeComponent } from './home/home.component';
 import { HttpClientModule } from '@angular/common/http'; // The HttpClientModule module is used to make HTTP requests. (note: is depreciated)
 import { FormsModule } from '@angular/forms'; // The FormsModule module is used to work with forms in Angular.
 import { CalculatorComponent } from './calculator/calculator.component';
+import { provideCharts, withDefaultRegisterables } from 'ng2-charts';
 
 
 @NgModule({
@@ -35,7 +36,8 @@ import { CalculatorComponent } from './calculator/calculator.component';
   providers: [
     // The provideClientHydration function is used to provide hydration to the client.
     // hydration is the process of restoring the state of the application on the client side.
-    provideClientHydration(withEventReplay())
+    provideClientHydration(withEventReplay()),
+    provideCharts(withDefaultRegisterables())
   ],
   bootstrap: [AppComponent]
 })

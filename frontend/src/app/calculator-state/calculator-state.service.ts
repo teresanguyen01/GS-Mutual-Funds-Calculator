@@ -20,6 +20,10 @@ export class CalculatorStateService {
   marketRate: number | null = null;
   riskFreeRate: number | null = 0.046;
 
+  // Chart data state
+  private chartLabels: string[] = [];
+  private chartData: number[] = [];
+
   // List of investments
   private investments: Investment[] = [];
 
@@ -40,6 +44,20 @@ export class CalculatorStateService {
     this.beta = beta;
     this.marketRate = marketRate;
     this.riskFreeRate = riskFreeRate;
+  }
+
+  // Save chart data
+  saveChartData(labels: string[], data: number[]) {
+    this.chartLabels = labels;
+    this.chartData = data;
+  }
+
+  // Retrieve chart data
+  getChartData() {
+    return {
+      labels: this.chartLabels,
+      data: this.chartData
+    };
   }
 
   // Add a new investment to the list
