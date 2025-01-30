@@ -3,12 +3,11 @@
   <div class="form-container">
     <select class="dropdown" [(ngModel)]="selectedFund">
       <option value="" disabled selected>Add Mutual Fund here</option>
-      <!-- *ngFor is a directive that iterates over a list of items -->
       <option *ngFor="let fund of mutualFunds" [value]="fund">{{ fund }}</option>
     </select>
 
     <input type="number" placeholder="$ Initial Investment" class="input-field" [(ngModel)]="initialInvestment">
-    <!-- ngModel is a directive that binds the value of the input field to the initialInvestment property in the component class -->
+
     <select class="dropdown" [(ngModel)]="timeHorizon">
       <option value="" disabled selected>Choose Time Here</option>
       <option [value]="1">1 Year</option>
@@ -18,7 +17,6 @@
       <option [value]="15">15+ Years</option>
     </select>
 
-    <!-- calculateFutureValue is a method that calculates the future value of the investment. this is in the component class -->
     <button class="submit-btn" (click)="calculateFutureValue()">Submit</button>
     <button class="add-btn" (click)="addInvestment()">Add Investment</button>
   </div>
@@ -44,4 +42,17 @@
       <p class="result-value">{{ riskFreeRate | percent:'1.2-2' }}</p>
     </div>
   </div>
+
+  <div class="chart-section" *ngIf="futureValue !== null">
+    <h3>Performance</h3>
+    <canvas
+      baseChart
+      [data]="performanceChartData"
+      [options]="performanceChartOptions"
+      [type]="'line'"
+      class="performance-chart"
+    ></canvas>
+  </div>
+  
+
 </div>

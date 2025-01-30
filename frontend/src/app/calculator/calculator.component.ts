@@ -1,17 +1,21 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { CalculatorStateService } from '../calculator-state/calculator-state.service';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { ChartConfiguration, ChartType } from 'chart.js';
+import { BaseChartDirective } from 'ng2-charts';
 
 @Component({
   selector: 'app-calculator',
   standalone: true,
-  imports: [FormsModule, CommonModule],
+  imports: [FormsModule, CommonModule, BaseChartDirective],
   templateUrl: './calculator.component.html',
   styleUrls: ['./calculator.component.scss']
 })
 export class CalculatorComponent implements OnInit {
+  @ViewChild(BaseChartDirective) chart?: BaseChartDirective;
+
   mutualFunds = ['BTCFX', 'VFIAX', 'FXAIX', 'SWPPX', 'QSPRX', 'VOO'];
   selectedFund: string = '';
   initialInvestment: number | null = null;
@@ -21,11 +25,45 @@ export class CalculatorComponent implements OnInit {
   marketRate: number | null = null;
   riskFreeRate: number | null = null;
 
+  // Chart data
+  performanceChartData: ChartConfiguration['data'] = {
+    labels: [],
+    datasets: [
+      {
+        label: 'Future Value of Investment',
+        data: [],
+        fill: true,
+        backgroundColor: 'rgba(75, 192, 192, 0.2)',
+        borderColor: 'rgba(75, 192, 192, 1)',
+        tension: 0.4
+      }
+    ]
+  };
+
+  performanceChartOptions: ChartConfiguration['options'] = {
+    responsive: true,
+    maintainAspectRatio: false,
+    scales: {
+      x: {
+        title: {
+          display: true,
+          text: 'Time (Years)'
+        }
+      },
+      y: {
+        title: {
+          display: true,
+          text: 'Future Value of Investment'
+        }
+      }
+    }
+  };
+
   constructor(private http: HttpClient, private stateService: CalculatorStateService) {}
 
   ngOnInit(): void {
-    // Load the state from the service when the component is initialized
     this.loadState();
+    this.loadChartData();
   }
 
   loadState(): void {
@@ -36,6 +74,17 @@ export class CalculatorComponent implements OnInit {
     this.beta = this.stateService.beta;
     this.marketRate = this.stateService.marketRate;
     this.riskFreeRate = this.stateService.riskFreeRate;
+  }
+
+  loadChartData(): void {
+    const chartData = this.stateService.getChartData();
+    this.performanceChartData.labels = chartData.labels;
+    this.performanceChartData.datasets[0].data = chartData.data;
+
+    // Update the chart display if data exists
+    if (chartData.labels.length > 0) {
+      this.chart?.update();
+    }
   }
 
   calculateFutureValue() {
@@ -59,7 +108,6 @@ export class CalculatorComponent implements OnInit {
         this.beta = response.beta;
         this.marketRate = response.marketReturnRate;
 
-        // Save the state after calculating the future value
         this.stateService.saveState(
           this.selectedFund,
           this.initialInvestment,
@@ -69,6 +117,8 @@ export class CalculatorComponent implements OnInit {
           this.marketRate,
           this.riskFreeRate
         );
+
+        this.updateChart();
       },
       error => {
         console.error('Error calculating future value:', error);
@@ -76,6 +126,26 @@ export class CalculatorComponent implements OnInit {
       }
     );
   }
+
+  updateChart() {
+    if (this.timeHorizon && this.futureValue) {
+      const timeValues = Array.from({ length: this.timeHorizon }, (_, i) => i + 1);
+      const investmentValues = timeValues.map(year => (this.futureValue! / this.timeHorizon!) * year);
+  
+      // Convert labels to strings
+      const stringLabels = timeValues.map(year => `Year ${year}`);
+  
+      // Update the chart data
+      this.performanceChartData.labels = stringLabels;
+      this.performanceChartData.datasets[0].data = investmentValues;
+  
+      // Save the updated chart data to the state service
+      this.stateService.saveChartData(stringLabels, investmentValues);
+  
+      this.chart?.update();
+    }
+  }
+  
 
   addInvestment() {
     if (!this.selectedFund || !this.initialInvestment || !this.timeHorizon || !this.futureValue) {
