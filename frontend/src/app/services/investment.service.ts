@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class InvestmentService {
-  private baseUrl = 'http://localhost:4200';  // Change to your backend URL if different
+  private baseUrl = 'http://localhost:4200'
 
   constructor(private http: HttpClient) {}
 
