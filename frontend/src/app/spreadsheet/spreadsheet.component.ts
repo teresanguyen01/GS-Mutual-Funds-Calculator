@@ -1,12 +1,36 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';  // Import CommonModule
+import { CalculatorStateService } from '../calculator-state/calculator-state.service';
+
+interface Investment {
+  mutualFund: string;
+  initialInvestment: number;
+  timeHorizon: number;
+  futureValue: number;
+}
 
 @Component({
   selector: 'app-spreadsheet',
-  standalone: false,
-  
   templateUrl: './spreadsheet.component.html',
-  styleUrl: './spreadsheet.component.scss'
+  styleUrls: ['./spreadsheet.component.scss'],
+  standalone: true,  // Ensure it's standalone
+  imports: [CommonModule]  // Add CommonModule here
 })
-export class SpreadsheetComponent {
+export class SpreadsheetComponent implements OnInit {
+  investments: Investment[] = [];
 
+  constructor(private stateService: CalculatorStateService) {}
+
+  ngOnInit(): void {
+    this.loadInvestments();
+  }
+
+  loadInvestments(): void {
+    this.investments = this.stateService.getInvestments();
+  }
+
+  clearInvestments(): void {
+    this.stateService.clearInvestments();
+    this.investments = [];
+  }
 }

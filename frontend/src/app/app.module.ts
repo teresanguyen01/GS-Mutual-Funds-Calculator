@@ -4,6 +4,7 @@ import { NgModule } from '@angular/core'; // The NgModule is a decorator functio
 import { BrowserModule, provideClientHydration, withEventReplay } from '@angular/platform-browser'; // The BrowserModule module is used to run the application in the browser.
 import { AppRoutingModule } from './app-routing.module'; // The AppRoutingModule module is used to define the routes of the application.
 import { AppComponent } from './app.component'; // The AppComponent is the root component of the application.
+import { CommonModule } from '@angular/common';
 
 // All the page components are imported here (note: CalculatorComponent is standalone and not imported here).
 import { HeaderComponent } from './header/header.component';
@@ -12,6 +13,7 @@ import { SpreadsheetComponent } from './spreadsheet/spreadsheet.component';
 import { HomeComponent } from './home/home.component';
 import { HttpClientModule } from '@angular/common/http'; // The HttpClientModule module is used to make HTTP requests. (note: is depreciated)
 import { FormsModule } from '@angular/forms'; // The FormsModule module is used to work with forms in Angular.
+import { CalculatorComponent } from './calculator/calculator.component';
 
 
 @NgModule({
@@ -19,13 +21,15 @@ import { FormsModule } from '@angular/forms'; // The FormsModule module is used 
     AppComponent,
     HeaderComponent,
     AboutComponent,
-    SpreadsheetComponent,
     HomeComponent, 
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
+    SpreadsheetComponent,
+    CalculatorComponent,
+    CommonModule,
     HttpClientModule,
   ],
   providers: [

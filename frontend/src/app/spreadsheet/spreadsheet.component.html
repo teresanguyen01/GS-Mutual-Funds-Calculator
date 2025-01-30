@@ -1,1 +1,28 @@
-<h1>Spreadsheet Page</h1>
+<div class="spreadsheet-container">
+  
+    <table class="spreadsheet-table" *ngIf="investments.length > 0; else noData">
+      <thead>
+        <tr>
+          <th>Mutual Fund</th>
+          <th>Initial Investment</th>
+          <th>Time Horizon</th>
+          <th>Future Value of Investment</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let investment of investments">
+          <td><strong>{{ investment.mutualFund }}</strong></td>
+          <td>{{ investment.initialInvestment | currency }}</td>
+          <td>{{ investment.timeHorizon }} years</td>
+          <td>{{ investment.futureValue | currency }}</td>
+        </tr>
+      </tbody>
+    </table>
+  
+    <ng-template #noData>
+      <p>You did not make any investments. Please add investments in the 'Calculator' tab!</p>
+    </ng-template>
+  
+    <button (click)="clearInvestments()" class="clear-btn">Clear All Investments</button>
+  </div>
+  

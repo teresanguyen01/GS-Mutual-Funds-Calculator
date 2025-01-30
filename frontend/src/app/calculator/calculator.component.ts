@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { CalculatorStateService } from '../calculator-state/calculator-state.service'; // for saving the data!
+import { CalculatorStateService } from '../calculator-state/calculator-state.service';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 
@@ -11,21 +11,24 @@ import { CommonModule } from '@angular/common';
   templateUrl: './calculator.component.html',
   styleUrls: ['./calculator.component.scss']
 })
-
-// The CalculatorComponent class is the controller for the calculator component.
-export class CalculatorComponent {
-  // all hardcoded mutual funds Victoria provided
+export class CalculatorComponent implements OnInit {
   mutualFunds = ['BTCFX', 'VFIAX', 'FXAIX', 'SWPPX', 'QSPRX', 'VOO'];
-  selectedFund: string;
-  initialInvestment: number | null;
-  timeHorizon: number | null;
-  futureValue: number | null;
-  beta: number | null;
-  marketRate: number | null;
-  riskFreeRate: number | null;
+  selectedFund: string = '';
+  initialInvestment: number | null = null;
+  timeHorizon: number | null = null;
+  futureValue: number | null = null;
+  beta: number | null = null;
+  marketRate: number | null = null;
+  riskFreeRate: number | null = null;
 
-  // Inject the HttpClient and CalculatorStateService services --> for saving the data!
-  constructor(private http: HttpClient, private stateService: CalculatorStateService) {
+  constructor(private http: HttpClient, private stateService: CalculatorStateService) {}
+
+  ngOnInit(): void {
+    // Load the state from the service when the component is initialized
+    this.loadState();
+  }
+
+  loadState(): void {
     this.selectedFund = this.stateService.selectedFund;
     this.initialInvestment = this.stateService.initialInvestment;
     this.timeHorizon = this.stateService.timeHorizon;
@@ -35,45 +38,59 @@ export class CalculatorComponent {
     this.riskFreeRate = this.stateService.riskFreeRate;
   }
 
-  // Function to calculate the future value of the investment
   calculateFutureValue() {
     if (!this.selectedFund || !this.initialInvestment || !this.timeHorizon) {
-      // If any of the fields are empty, alert the user to fill out all fields
-      alert('Please fill out all fields! :)');
+      alert('Please fill out all fields.');
       return;
     }
 
-    // Parameters to send to the server
     const params = {
       initialInvestment: this.initialInvestment.toString(),
       time: this.timeHorizon.toString(),
       ticker: this.selectedFund
     };
 
-    // Make a GET request to the server to calculate the future value from the backend
-    // similar to the link Victoria provided to test
     this.http.get<{ futureValue: number; beta: number; marketReturnRate: number }>(
       'http://localhost:8080/futureValue',
       { params }
-    ).subscribe(response => {
-      this.futureValue = response.futureValue;
-      this.beta = response.beta;
-      this.marketRate = response.marketReturnRate;
+    ).subscribe(
+      response => {
+        this.futureValue = response.futureValue;
+        this.beta = response.beta;
+        this.marketRate = response.marketReturnRate;
 
-      // Save the state in the service (this is so that way when we switch to a new tab, the data is still there)
-      this.stateService.saveState(
-        this.selectedFund,
-        this.initialInvestment,
-        this.timeHorizon,
-        this.futureValue,
-        this.beta,
-        this.marketRate,
-        this.riskFreeRate
-      );
-      // added if statement to alert user if the future value is less than the initial investment
-    }, error => {
-      console.error('Error calculating future value:', error);
-      alert('Error calculating future value. Please try again.');
-    });
+        // Save the state after calculating the future value
+        this.stateService.saveState(
+          this.selectedFund,
+          this.initialInvestment,
+          this.timeHorizon,
+          this.futureValue,
+          this.beta,
+          this.marketRate,
+          this.riskFreeRate
+        );
+      },
+      error => {
+        console.error('Error calculating future value:', error);
+        alert('An error occurred. Please try again.');
+      }
+    );
+  }
+
+  addInvestment() {
+    if (!this.selectedFund || !this.initialInvestment || !this.timeHorizon || !this.futureValue) {
+      alert('Please calculate the future value first.');
+      return;
+    }
+
+    const newInvestment = {
+      mutualFund: this.selectedFund,
+      initialInvestment: this.initialInvestment,
+      timeHorizon: this.timeHorizon,
+      futureValue: this.futureValue
+    };
+
+    this.stateService.addInvestment(newInvestment);
+    alert('Investment added successfully!');
   }
 }
