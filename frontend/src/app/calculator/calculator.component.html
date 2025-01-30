@@ -20,7 +20,7 @@
 
     <!-- calculateFutureValue is a method that calculates the future value of the investment. this is in the component class -->
     <button class="submit-btn" (click)="calculateFutureValue()">Submit</button>
-    <button class="add-btn">Add Investment</button>
+    <button class="add-btn" (click)="addInvestment()">Add Investment</button>
   </div>
 
   <div class="results-container" *ngIf="futureValue !== null">

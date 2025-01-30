@@ -1,13 +1,17 @@
-// Inject the HttpClient and CalculatorStateService services
-// Injectable is a decorator that marks a class as available to be provided and injected as a dependency.
 import { Injectable } from '@angular/core';
+
+interface Investment {
+  mutualFund: string;
+  initialInvestment: number;
+  timeHorizon: number;
+  futureValue: number;
+}
 
 @Injectable({
   providedIn: 'root'
 })
-
-// The CalculatorStateService class is a service that stores the state of the calculator component.
 export class CalculatorStateService {
+  // State for current investment data
   selectedFund: string = '';
   initialInvestment: number | null = null;
   timeHorizon: number | null = null;
@@ -16,6 +20,10 @@ export class CalculatorStateService {
   marketRate: number | null = null;
   riskFreeRate: number | null = 0.046;
 
+  // List of investments
+  private investments: Investment[] = [];
+
+  // Save the current calculator state
   saveState(
     selectedFund: string,
     initialInvestment: number | null,
@@ -32,5 +40,20 @@ export class CalculatorStateService {
     this.beta = beta;
     this.marketRate = marketRate;
     this.riskFreeRate = riskFreeRate;
+  }
+
+  // Add a new investment to the list
+  addInvestment(investment: Investment) {
+    this.investments.push(investment);
+  }
+
+  // Retrieve all stored investments
+  getInvestments(): Investment[] {
+    return this.investments;
+  }
+
+  // Clear all stored investments
+  clearInvestments() {
+    this.investments = [];
   }
 }
