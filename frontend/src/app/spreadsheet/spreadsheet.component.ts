@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';  // Import CommonModule
+import { CommonModule } from '@angular/common';
 import { CalculatorStateService } from '../calculator-state/calculator-state.service';
 
 interface Investment {
@@ -13,8 +13,8 @@ interface Investment {
   selector: 'app-spreadsheet',
   templateUrl: './spreadsheet.component.html',
   styleUrls: ['./spreadsheet.component.scss'],
-  standalone: true,  // Ensure it's standalone
-  imports: [CommonModule]  // Add CommonModule here
+  standalone: true,
+  imports: [CommonModule]
 })
 export class SpreadsheetComponent implements OnInit {
   investments: Investment[] = [];
